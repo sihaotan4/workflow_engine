@@ -1,9 +1,14 @@
 # Asynchronous DAG-based Workflow Orchestrator for LLMs
 
-### Proof-of-concept
+Note: this is a proof-of-concept prototype.
 
 An asynchronous workflow orchestrator designed to execute LLM-driven tasks in a directed acyclic graph (DAG). This engine interprets workflow definitions from TOML files, resolves task dependencies, and runs LLM or custom functions asynchronously with control flow logic.
-Features
+
+
+![Example Workflow DAG](workflow_dag.svg)
+
+
+Features:
 
 - DAG-based execution: Tasks (nodes) and dependencies (edges) are represented in a directed acyclic graph.
 
