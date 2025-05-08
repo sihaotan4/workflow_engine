@@ -25,7 +25,7 @@ Features:
 # System components
 - `workflow.toml` user configuration file to define the DAG workflow
 - `node_functions.py` contains the node function primitives as well as custom functions (mainly relating to control flow node types)
-- `workflow_dag.svg` generated at run time to visualize teh workflow
+- `workflow_dag.svg` generated at run time to visualize the workflow
 
 System outputs are created by the fn `async def execute_dag(dag)` which writes the output of nodes into dict `node_outputs`. The final output will be in the terminal nodes. This essentially allows for multiple outputs to be created in one workflow.
 
