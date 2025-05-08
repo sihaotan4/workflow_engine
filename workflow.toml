@@ -1,0 +1,105 @@
+[workflow]
+name = "example_llm_workflow"
+description = "A mock workflow demonstrating LLM, control flow, and data fetching nodes."
+
+[[nodes]]
+node_id = "fetch_data_source_a"
+node_type = "data_fetcher_node"
+description = "Fetch from Data Source A"
+source_details = "Data - company description"
+output_type = "raw_data"
+downstream = ["llm_summarize_data_source_a"]
+
+[[nodes]]
+node_id = "fetch_data_source_b"
+node_type = "data_fetcher_node"
+description = "Fetch from Data Source B"
+source_details = "Data - project scope"
+output_type = "raw_data"
+downstream = ["llm_summarize_data_source_b"]
+
+[[nodes]]
+node_id = "fetch_data_source_c"
+node_type = "data_fetcher_node"
+description = "Fetch from Data Source c"
+source_details = "Data - last declared revenue"
+output_type = "raw_data"
+downstream = ["llm_extract_data_source_c"]
+
+[[nodes]]
+node_id = "llm_extract_data_source_c"
+node_type = "llm_node"
+description = "Works on extracted data source C data"
+prompt = "prompt_lorum_ipsum"
+output_type = "processed_data"
+downstream = ["llm_rank_merge_source_b_and_c"]
+
+[[nodes]]
+node_id = "llm_rank_merge_source_b_and_c"
+node_type = "llm_node"
+description = "Merges data from 2 LLM outputs"
+prompt = "prompt_lorum_ipsum"
+output_type = "processed_data"
+downstream = ["llm_evaluate_all_sources"]
+
+[[nodes]]
+node_id = "llm_summarize_data_source_a"
+node_type = "llm_node"
+description = "Processes raw data from data source a"
+prompt = "prompt_lorum_ipsum"
+output_type = "processed_data"
+downstream = ["control_flow_data_source_a"]
+
+[[nodes]]
+node_id = "control_flow_data_source_a"
+node_type = "control_flow_node"
+description = "Evaluate source A and decide on which downstream nodes to fire off"
+output_type = "decision_zero_or_more"
+downstream = [
+    "llm_evaluate_source_a_sector_1", 
+    "llm_evaluate_source_a_sector_2",
+]
+
+[[nodes]]
+node_id = "llm_summarize_data_source_b"
+node_type = "llm_node"
+description = "Processes raw data from data source B"
+prompt = "prompt_lorum_ipsum"
+output_type = "processed_data"
+downstream = ["llm_evaluate_source_b"]
+
+[[nodes]]
+node_id = "llm_evaluate_source_b"
+node_type = "llm_node"
+description = "Refines the summary from source B"
+prompt = "prompt_lorum_ipsum"
+output_type = "processed_data"
+downstream = [
+    "llm_evaluate_all_sources",
+    "llm_rank_merge_source_b_and_c",    
+]
+
+[[nodes]]
+node_id = "llm_evaluate_source_a_sector_1"
+node_type = "llm_node"
+description = "Processes raw data from data source A"
+prompt = "prompt_lorum_ipsum"
+output_type = "processed_data"
+downstream = ["llm_evaluate_all_sources"]
+
+[[nodes]]
+node_id = "llm_evaluate_source_a_sector_2"
+node_type = "llm_node"
+description = "Processes raw data from data source A"
+prompt = "prompt_lorum_ipsum"
+output_type = "processed_data"
+downstream = ["llm_evaluate_all_sources"]
+
+[[nodes]]
+node_id = "llm_evaluate_all_sources"
+node_type = "llm_node"
+description = "Evaluates outputs from both source A and B"
+prompt = "prompt_lorum_ipsum"
+output_type = "processed_data"
+downstream = []
+
